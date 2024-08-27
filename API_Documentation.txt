@@ -1,0 +1,77 @@
+Sentiment Analysis API Documentation
+# Note: here for testing, the username and password is: "Megan:6837" and its equivalent Base64 encode is "TWVnYW46NjgzNw=="
+ 
+Introduction
+------------
+This API provides sentiment analysis capabilities using two different models: v1 and v2. Users can authenticate themselves to access specific routes and models.
+
+API Routes
+----------
+
+GET /status
+
+Returns the status of the API.
+
+Example Request:
+curl -X GET http://localhost:5000/status
+
+Example Response:
+{"status": 1}
+
+
+GET /welcome
+
+Returns a greeting message with the username specified in the query string.
+
+Example Request:
+curl -X GET http://localhost:5000/welcome?username=John
+
+Example Response:
+Welcome, John!
+
+
+POST /permissions
+
+Returns a list of permissions for a user authenticated by username and password.
+
+Example Request:
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Basic TWVnYW46NjgzNw==" \
+  http://localhost:5000/permissions
+
+Example Response:
+{
+  "v1": true,
+  "v2": false
+}
+
+
+POST /v1/sentiment
+
+Returns the sentiment score by the v1 template of the sentence proposed by the 'sentence' argument sent by POST.
+
+Example Request:
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Basic TWVnYW46NjgzNw==" \
+  -d '{"sentence": "This is a positive sentence."}' \
+  http://localhost:5000/v1/sentiment
+
+Example Response:
+{"sentiment_score": 0.734}
+
+
+POST /v2/sentiment
+
+Returns the sentiment score by the v2 template of the sentence proposed by the 'sentence' argument sent by POST.
+
+Example Request:
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Basic TWVnYW46NjgzNw==" \
+  -d '{"sentence": "This is a positive sentence."}' \
+  http://localhost:5000/v2/sentiment
+
+Example Response:
+{"sentiment_score": 0.927}
